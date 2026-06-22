@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BBL Season 9 (2026) — Registration v1.0</title>
+  <style>
+    :root {
+      --green:        #2E7D32;
+      --green-dark:   #1B5E20;
+      --green-light:  #4CAF50;
+      --green-pale:   #E8F5E9;
+      --orange:       #E65100;
+      --orange-light: #FF8F00;
+      --orange-pale:  #FFF3E0;
+      --bg:           #F2F8F2;
+      --card:         #FFFFFF;
+      --border:       #A5D6A7;
+      --border-light: #C8E6C9;
+      --text:         #1A2E1A;
+      --muted:        #5D7A5D;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(160deg, var(--green-dark) 0%, var(--green) 60%, #388E3C 100%);
+      color: white; padding: 28px 24px 24px; text-align: center;
+      border-bottom: 4px solid var(--orange);
+    }
+    .header-logo-wrap {
+      display: inline-block; background: white;
+      border-radius: 18px; padding: 12px 24px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .header-logo {
+      width: 200px; height: auto; display: block;
+    }
+    .header h1 {
+      font-size: 24px; font-weight: 800; letter-spacing: 0.5px;
+      margin-bottom: 3px; text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .header .subtitle { font-size: 13px; opacity: 0.85; margin-bottom: 12px; }
+    .deadline {
+      display: inline-block;
+      background: var(--orange); color: white;
+      border-radius: 20px; padding: 5px 18px;
+      font-size: 13px; font-weight: 700;
+      box-shadow: 0 2px 8px rgba(230,81,0,0.4);
+    }
+
+    /* ── PROGRESS ── */
+    .progress-wrap { max-width: 740px; margin: 20px auto 0; padding: 0 20px; }
+    .progress-steps {
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; margin-bottom: 6px;
+    }
+    .progress-steps::before {
+      content: ''; position: absolute; top: 15px; left: 16px; right: 16px;
+      height: 2px; background: var(--border); z-index: 0;
+    }
+    .step-dot {
+      width: 30px; height: 30px; border-radius: 50%; background: white;
+      border: 2px solid var(--border); display: flex; align-items: center;
+      justify-content: center; font-size: 12px; font-weight: 800;
+      color: var(--muted); z-index: 1; transition: all 0.3s;
+    }
+    .step-dot.active { background: var(--green); border-color: var(--green); color: white; }
+    .step-dot.done   { background: var(--orange); border-color: var(--orange); color: white; }
+    .step-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); font-weight: 600; }
+    .step-labels span { text-align: center; width: 33%; }
+
+    /* ── CONTAINER & CARDS ── */
+    .container { max-width: 740px; margin: 20px auto 52px; padding: 0 16px; }
+    .card {
+      background: var(--card); border-radius: 12px; padding: 22px 24px;
+      margin-bottom: 16px; border: 1px solid var(--border-light);
+      box-shadow: 0 2px 12px rgba(46,125,50,0.08);
+    }
+    .card-title {
+      font-size: 13px; font-weight: 800; color: var(--green);
+      margin-bottom: 18px; padding-bottom: 9px;
+      border-bottom: 2px solid var(--green-pale);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .card-title::before {
+      content: ''; display: inline-block; width: 4px; height: 16px;
+      background: var(--orange); border-radius: 2px; flex-shrink: 0;
+    }
+
+    /* ── RULES BANNER ── */
+    .rules-box {
+      background: var(--green-pale); border-left: 4px solid var(--green);
+      border-radius: 0 8px 8px 0; padding: 14px 18px;
+      font-size: 13px; line-height: 1.85; margin-bottom: 16px;
+    }
+    .rules-box strong { color: var(--green-dark); }
+    .rules-box .highlight { color: var(--orange); font-weight: 700; }
+
+    /* ── FORM ELEMENTS ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .span-2 { grid-column: span 2; }
+
+    label { display: block; font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    label .req { color: var(--orange); }
+    label .hint { font-weight: 400; color: var(--muted); font-size: 12px; }
+
+    input[type="text"], input[type="email"], input[type="number"], input[type="tel"], select {
+      width: 100%; padding: 10px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px; font-size: 14px; color: var(--text);
+      background: white; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input:focus, select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(46,125,50,0.12);
+    }
+    input.error, select.error { border-color: #C62828 !important; box-shadow: 0 0 0 3px rgba(198,40,40,0.1) !important; }
+
+    /* ── PLAYER TABLE ── */
+    .player-table { width: 100%; border-collapse: collapse; }
+    .player-table thead th {
+      background: var(--green-pale); color: var(--green-dark);
+      font-weight: 800; font-size: 11px; padding: 10px 10px;
+      text-align: left; border-bottom: 2px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .player-table tbody tr { transition: background 0.15s; }
+    .player-table tbody tr:nth-child(even) { background: #FAFFF8; }
+    .player-table tbody tr:hover { background: var(--green-pale); }
+    .player-table tbody td {
+      padding: 7px 8px; vertical-align: middle;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .player-label { font-weight: 700; font-size: 13px; white-space: nowrap; color: var(--text); }
+    .player-badge {
+      display: inline-block; font-size: 9px; background: var(--orange);
+      color: white; border-radius: 10px; padding: 1px 7px; margin-left: 4px;
+      vertical-align: middle; font-weight: 700; letter-spacing: 0.3px;
+    }
+    .player-table input { padding: 7px 8px; font-size: 13px; border-radius: 6px; }
+    .table-note { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+
+    /* ── FILE UPLOAD ── */
+    .file-upload {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 22px 16px; text-align: center; cursor: pointer;
+      transition: all 0.2s; background: #FAFFF8;
+    }
+    .file-upload:hover { border-color: var(--green); background: var(--green-pale); }
+    .file-upload input[type="file"] { display: none; }
+    .file-icon { font-size: 26px; margin-bottom: 6px; }
+    .file-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .file-text strong { color: var(--green); }
+    .file-chosen { font-size: 12px; color: var(--green); margin-top: 6px; font-weight: 700; }
+
+    /* ── QR / PAYMENT ── */
+    .qr-row {
+      display: flex; align-items: center; gap: 20px;
+      background: var(--orange-pale); border-radius: 10px;
+      padding: 16px 20px; border: 1px solid #FFCC80; margin-bottom: 20px;
+    }
+    .qr-img {
+      width: 110px; height: 110px; border-radius: 8px; flex-shrink: 0;
+      object-fit: contain; border: 2px solid #FFCC80;
+    }
+    .qr-details { font-size: 13px; line-height: 1.9; }
+    .qr-details .amount { font-size: 24px; font-weight: 800; color: var(--orange); }
+    .qr-details .upi {
+      font-family: 'Courier New', monospace; background: white;
+      padding: 2px 8px; border-radius: 4px; font-size: 13px;
+      border: 1px solid #FFCC80; color: var(--green-dark); font-weight: 700;
+    }
+    .warn { color: #C62828; font-weight: 700; }
+
+    /* ── BUTTONS ── */
+    .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; gap: 12px; }
+    .btn {
+      padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 700;
+      cursor: pointer; border: none; transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-back {
+      background: white; color: var(--green);
+      border: 2px solid var(--green);
+    }
+    .btn-back:hover { background: var(--green-pale); }
+    .btn-next {
+      background: var(--green); color: white;
+      flex: 1; max-width: 260px; justify-content: center;
+      box-shadow: 0 3px 10px rgba(46,125,50,0.25);
+    }
+    .btn-next:hover { background: var(--green-dark); box-shadow: 0 5px 14px rgba(46,125,50,0.35); transform: translateY(-1px); }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--orange), var(--orange-light));
+      color: white; flex: 1; max-width: 260px; justify-content: center;
+      font-size: 15px; box-shadow: 0 3px 12px rgba(230,81,0,0.3);
+    }
+    .btn-submit:hover { box-shadow: 0 5px 16px rgba(230,81,0,0.45); transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
+    /* ── SUCCESS ── */
+    .success-card { text-align: center; padding: 48px 24px; }
+    .success-card .s-icon { font-size: 64px; margin-bottom: 16px; }
+    .success-card h2 { color: var(--green); font-size: 24px; margin-bottom: 8px; }
+    .success-card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .success-detail {
+      margin-top: 24px; background: var(--green-pale); border-radius: 10px;
+      padding: 16px 20px; font-size: 13px; color: var(--green-dark); line-height: 1.9;
+      border: 1px solid var(--border);
+    }
+
+    /* ── SECTIONS ── */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .span-2 { grid-column: span 1; }
+      .qr-row { flex-direction: column; text-align: center; }
+      .header h1 { font-size: 20px; }
+      .header-logo { width: 90px; }
+
+      /* Player table → cards on mobile */
+      .player-table thead { display: none; }
+      .player-table tbody tr {
+        display: block;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        padding: 12px;
+        box-shadow: 0 1px 4px rgba(46,125,50,0.08);
+      }
+      .player-table tbody tr:nth-child(even) { background: white; }
+      .player-table tbody td {
+        display: flex;
+        flex-direction: column;
+        padding: 6px 0;
+        border-bottom: none;
+        font-size: 13px;
+      }
+      .player-table tbody td::before {
+        content: attr(data-label);
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+      }
+      .player-table tbody td:first-child {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--green);
+        border-bottom: 1px solid var(--border-light);
+        margin-bottom: 6px;
+        padding-bottom: 8px;
+      }
+      .player-table tbody td:first-child::before { display: none; }
+      .player-table input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div class="header-logo-wrap">
+    <img src="BBL_logo.png" alt="Baroda Badminton League" class="header-logo">
+  </div>
+  <h1>Season 9 — 2026 &nbsp;Registration</h1>
+  <p class="subtitle">Team Registration Form &nbsp;·&nbsp; Fill all 3 sections to complete</p>
+  <div class="deadline">⏰ &nbsp;Deadline: 17 July 2026, 10:00 PM</div>
+</div>
+
+<!-- ══ PROGRESS BAR ══ -->
+<div class="progress-wrap">
+  <div class="progress-steps">
+    <div class="step-dot active" id="dot1">1</div>
+    <div class="step-dot" id="dot2">2</div>
+    <div class="step-dot" id="dot3">3</div>
+  </div>
+  <div class="step-labels">
+    <span>Team Info</span>
+    <span>Players</span>
+    <span>Documents</span>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="container">
+
+  <!-- ─ SECTION 1: Team Info ─ -->
+  <div class="section active" id="section1">
+
+    <div class="rules-box">
+      <strong>Key Rules — BBL Season 9:</strong><br>
+      &bull; All players born <span class="highlight">on or before 1995</span> (age 30+)<br>
+      &bull; Squad must include: min. 2 players born ≤&thinsp;1985 (40+), 1 born ≤&thinsp;1980 (45+), 1 born ≤&thinsp;1975 (50+)<br>
+      &bull; 2nd match of every Tie: combined age of both players must be <span class="highlight">95+</span><br>
+      &bull; No postponements — scheduled date is the <span class="highlight">final date</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Team Details</div>
+      <div class="form-grid">
+        <div class="span-2">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+        <div class="span-2">
+          <label>Team Name <span class="req">*</span> &nbsp;<span class="hint">must include your Club name &nbsp;e.g. "Baroda Gymkhana Falcons"</span></label>
+          <input type="text" id="teamName" placeholder="e.g. Baroda Gymkhana Falcons" required>
+        </div>
+        <div>
+          <label>Division <span class="req">*</span> &nbsp;<span class="hint">as per Team Composition rules Rev 1.1</span></label>
+          <select id="division" required>
+            <option value="">— Select Division —</option>
+            <option value="A">Division A</option>
+            <option value="B">Division B</option>
+            <option value="C">Division C</option>
+            <option value="D">Division D</option>
+          </select>
+        </div>
+        <div>
+          <label>Players Retained from BBL8 <span class="req">*</span> &nbsp;<span class="hint">enter 0 if new team</span></label>
+          <input type="number" id="retained" min="0" max="8" placeholder="0 – 8" required>
+        </div>
+        <div class="span-2">
+          <label>Alternate Home Club &nbsp;<span class="hint">leave blank if same as club in team name</span></label>
+          <input type="text" id="homeClub" placeholder="Leave blank if not applicable">
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <div></div>
+      <button class="btn btn-next" onclick="goTo(2)">Next: Player Details &nbsp;→</button>
+    </div>
+  </div>
+
+  <!-- ─ SECTION 2: Players ─ -->
+  <div class="section" id="section2">
+    <div class="card">
+      <div class="card-title">Names of Team Players</div>
+      <table class="player-table">
+        <thead>
+          <tr>
+            <th style="width:120px">Player</th>
+            <th>Full Name <span style="color:#C62828">*</span></th>
+            <th style="width:130px">Date of Birth <span style="color:#C62828">*</span></th>
+            <th style="width:140px">Mobile No. <span style="color:#C62828">*</span></th>
+          </tr>
+        </thead>
+        <tbody id="playerRows"></tbody>
+      </table>
+      <div class="table-note">
+        <div style="background:#FFF3E0;border-left:4px solid #E65100;border-radius:0 8px 8px 0;padding:12px 16px;margin-top:14px;font-size:13px;line-height:1.7;">
+        <strong style="color:#E65100;font-size:14px;">⚠ IMPORTANT</strong><br>
+        Please provide the <strong>correct Date of Birth</strong> for each player.<br>
+        In case of any wrong information, the Committee will take <strong>strict action against the entire team</strong>.
+      </div>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="goTo(1)">← &nbsp;Back</button>
+      <button class="btn btn-next" onclick="goTo(3)">Next: Documents &nbsp;→</button>
+    </div>
+  </div>
+
+  <!-- ─ SECTION 3: Documents ─ -->
+  <div class="section" id="section3">
+    <div class="card">
+      <div class="card-title">Registration Payment — ₹6,000 per Team</div>
+      <div class="qr-row">
+        <img class="qr-img" src="qr_code.png" alt="UPI QR — Baroda Badminton League">
+        <div class="qr-details">
+          <div class="amount">₹ 6,000</div>
+          UPI ID: <span class="upi">12448476@cbin</span><br>
+          <span class="warn">⚠ Write your Team Name in Remarks</span> while paying<br>
+          Scan QR or enter UPI ID above &nbsp;·&nbsp; then upload screenshot below
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label>Club ID Proof &amp; Subscription <span class="req">*</span><br>
+            <span class="hint">Single PDF or JPG for all 8 players — max 100 MB</span>
+          </label>
+          <div class="file-upload" onclick="document.getElementById('clubIdFile').click()">
+            <input type="file" id="clubIdFile" accept=".pdf,.jpg,.jpeg,.png"
+                   onchange="showFileName(this,'clubIdName')">
+            <div class="file-icon">📎</div>
+            <div class="file-text">Tap to upload &nbsp;<strong>PDF or JPG</strong></div>
+            <div class="file-chosen" id="clubIdName"></div>
+          </div>
+        </div>
+        <div>
+          <label>UPI Payment Screenshot <span class="req">*</span><br>
+            <span class="hint">Payment confirmation — PDF or JPG — max 100 MB</span>
+          </label>
+          <div class="file-upload" onclick="document.getElementById('paymentFile').click()">
+            <input type="file" id="paymentFile" accept=".pdf,.jpg,.jpeg,.png"
+                   onchange="showFileName(this,'paymentName')">
+            <div class="file-icon">💳</div>
+            <div class="file-text">Tap to upload &nbsp;<strong>PDF or JPG</strong></div>
+            <div class="file-chosen" id="paymentName"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-back" onclick="goTo(2)">← &nbsp;Back</button>
+      <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">Submit Registration &nbsp;✓</button>
+    </div>
+  </div>
+
+  <!-- ─ SUCCESS ─ -->
+  <div class="section" id="sectionDone">
+    <div class="card success-card">
+      <div class="s-icon">🏆</div>
+      <h2>Registration Submitted!</h2>
+      <p>Your BBL Season 9 registration has been received.<br>The committee will review and confirm your team shortly.</p>
+      <div class="success-detail">
+        ✅ &nbsp;Team details saved to BBL records<br>
+        ✅ &nbsp;Documents uploaded successfully<br>
+        📩 &nbsp;Keep this page as confirmation
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTptHoQmhzTW5KGr5bVvKIG9_RCRTMX2eqsZRiFfdKyXl1mRzKkQQB_C5XfBUftKQP/exec';
+
+const PLAYERS = [
+  { num: 1, role: 'Captain'      },
+  { num: 2, role: 'Vice Captain' },
+  { num: 3, role: null           },
+  { num: 4, role: null           },
+  { num: 5, role: null           },
+  { num: 6, role: null           },
+  { num: 7, role: null           },
+  { num: 8, role: null           },
+];
+
+const tbody = document.getElementById('playerRows');
+PLAYERS.forEach(p => {
+  const badge = p.role ? `<span class="player-badge">${p.role}</span>` : '';
+  tbody.innerHTML += `
+    <tr>
+      <td class="player-label">Player ${p.num}${badge}</td>
+      <td data-label="Full Name"><input type="text" id="pName${p.num}" placeholder="Full name" required></td>
+      <td data-label="Date of Birth"><input type="date" id="pDob${p.num}"  max="1995-12-31" required></td>
+      <td data-label="Mobile No."><input type="tel"  id="pMob${p.num}"  placeholder="10-digit number" maxlength="10" required></td>
+    </tr>`;
+});
+
+let currentStep = 1;
+
+function goTo(step) {
+  currentStep = step;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section' + step).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateDots(step);
+}
+
+function updateDots(active) {
+  [1, 2, 3].forEach(i => {
+    const d = document.getElementById('dot' + i);
+    d.className = 'step-dot';
+    if (i < active)  d.classList.add('done');
+    if (i === active) d.classList.add('active');
+  });
+}
+
+function validateSection(step) {
+  let valid = true;
+  document.querySelectorAll(`#section${step} input[required], #section${step} select[required]`)
+    .forEach(el => {
+      el.classList.remove('error');
+      if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+    });
+  if (step === 2) {
+    PLAYERS.forEach(p => {
+      const dob = document.getElementById(`pDob${p.num}`);
+      if (dob?.value) {
+        const year = new Date(dob.value).getFullYear();
+        if (year < 1950 || year > 1995) { dob.classList.add('error'); valid = false; }
+      }
+      const mob = document.getElementById(`pMob${p.num}`);
+      if (mob?.value && !/^\d{10}$/.test(mob.value)) { mob.classList.add('error'); valid = false; }
+    });
+  }
+  if (!valid) alert('Please fill in all required fields correctly before continuing.');
+  return valid;
+}
+
+function showFileName(input, targetId) {
+  document.getElementById(targetId).textContent =
+    input.files[0] ? '✓ ' + input.files[0].name : '';
+}
+
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    if (!file) return res(null);
+    const r = new FileReader();
+    r.onload  = e => res(e.target.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+function collectData() {
+  return {
+    email:    document.getElementById('email').value.trim(),
+    teamName: document.getElementById('teamName').value.trim(),
+    division: document.getElementById('division').value,
+    retained: document.getElementById('retained').value,
+    homeClub: document.getElementById('homeClub').value.trim(),
+    timestamp: new Date().toISOString(),
+    players: PLAYERS.map(p => ({
+      name:   (document.getElementById(`pName${p.num}`)?.value || '').trim(),
+      dob:    (document.getElementById(`pDob${p.num}`)?.value  || '').trim(),
+      mobile: (document.getElementById(`pMob${p.num}`)?.value  || '').trim(),
+    })),
+  };
+}
+
+async function submitForm() {
+  if (!validateSection(3)) return;
+  const clubFile = document.getElementById('clubIdFile').files[0];
+  const payFile  = document.getElementById('paymentFile').files[0];
+  if (!clubFile) { alert('Please upload Club ID Proof / Subscription.'); return; }
+  if (!payFile)  { alert('Please upload Payment Screenshot.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = '⏳ Submitting…';
+  btn.disabled = true;
+
+  try {
+    const [clubB64, payB64] = await Promise.all([fileToBase64(clubFile), fileToBase64(payFile)]);
+    const payload = {
+      ...collectData(),
+      clubIdFile:  { name: clubFile.name, mimeType: clubFile.type, data: clubB64 },
+      paymentFile: { name: payFile.name,  mimeType: payFile.type,  data: payB64  },
+    };
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('sectionDone').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else { throw new Error('Server returned ' + res.status); }
+  } catch (err) {
+    alert('Submission failed. Please try again or contact the BBL Committee.\n\n' + err.message);
+    btn.textContent = 'Submit Registration ✓';
+    btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
