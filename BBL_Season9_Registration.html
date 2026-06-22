@@ -247,7 +247,7 @@
         content: attr(data-label);
         font-size: 11px;
         font-weight: 700;
-        color: var(--muted);
+        color: var(--orange);
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-bottom: 4px;
@@ -351,9 +351,9 @@
         <thead>
           <tr>
             <th style="width:120px">Player</th>
-            <th>Full Name <span style="color:#C62828">*</span></th>
-            <th style="width:130px">Date of Birth <span style="color:#C62828">*</span></th>
-            <th style="width:140px">Mobile No. <span style="color:#C62828">*</span></th>
+            <th>Full Name &nbsp;<span style="color:#C62828;font-size:14px">*</span></th>
+            <th style="width:130px">Date of Birth &nbsp;<span style="color:#C62828;font-size:14px">*</span></th>
+            <th style="width:140px">Mobile No. &nbsp;<span style="color:#C62828;font-size:14px">*</span></th>
           </tr>
         </thead>
         <tbody id="playerRows"></tbody>
@@ -456,9 +456,9 @@ PLAYERS.forEach(p => {
   tbody.innerHTML += `
     <tr>
       <td class="player-label">Player ${p.num}${badge}</td>
-      <td data-label="Full Name"><input type="text" id="pName${p.num}" placeholder="Full name" required></td>
-      <td data-label="Date of Birth"><input type="date" id="pDob${p.num}"  max="1995-12-31" required></td>
-      <td data-label="Mobile No."><input type="tel"  id="pMob${p.num}"  placeholder="10-digit number" maxlength="10" required></td>
+      <td data-label="Full Name *"><input type="text" id="pName${p.num}" placeholder="Full name" required></td>
+      <td data-label="Date of Birth *"><input type="date" id="pDob${p.num}"  max="1995-12-31" required></td>
+      <td data-label="Mobile No. *"><input type="tel"  id="pMob${p.num}"  placeholder="10-digit number" maxlength="10" required></td>
     </tr>`;
 });
 
