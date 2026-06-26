@@ -30,16 +30,19 @@
       border-bottom: 4px solid var(--orange);
       position: relative;
     }
-    .aegis-wrap {
-      position: absolute; top: 14px; right: 16px;
-      background: white; border-radius: 12px;
-      padding: 6px 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-      max-width: 160px;
+    .header-logos {
+      display: flex; justify-content: center; align-items: center;
+      gap: 16px; margin-bottom: 14px; flex-wrap: wrap;
     }
-    .aegis-wrap img { width: 100%; height: auto; display: block; }
+    .aegis-wrap {
+      background: white; border-radius: 12px;
+      padding: 6px 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+    }
+    .aegis-wrap img { height: 70px; width: auto; display: block; }
     @media (max-width: 560px) {
-      .aegis-wrap { max-width: 100px; top: 10px; right: 8px; padding: 4px 6px; }
+      .aegis-wrap img { height: 50px; }
+      .header-logo { width: 90px; }
     }
     .header-logo-wrap {
       display: inline-block; background: white;
@@ -281,11 +284,13 @@
 
 <!-- ══ HEADER ══ -->
 <div class="header">
-  <div class="aegis-wrap">
-    <img src="aegis_logos.png" alt="Under the aegis of Gujarat & Baroda Badminton Association">
-  </div>
-  <div class="header-logo-wrap">
-    <img src="BBL_logo.png" alt="Baroda Badminton League" class="header-logo">
+  <div class="header-logos">
+    <div class="header-logo-wrap">
+      <img src="BBL_logo.png" alt="Baroda Badminton League" class="header-logo">
+    </div>
+    <div class="aegis-wrap">
+      <img src="aegis_logos.png" alt="Under the aegis of Gujarat & Baroda Badminton Association">
+    </div>
   </div>
   <h1>Season 9 — 2026 &nbsp;Registration</h1>
   <p class="subtitle">Team Registration Form &nbsp;·&nbsp; Fill all 3 sections to complete</p>
