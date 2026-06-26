@@ -174,19 +174,20 @@
 
     /* ── QR / PAYMENT ── */
     .qr-row {
-      display: flex; align-items: center; gap: 20px;
       background: var(--orange-pale); border-radius: 10px;
-      padding: 16px 20px; border: 1px solid #FFCC80; margin-bottom: 20px;
+      padding: 20px; border: 1px solid #FFCC80; margin-bottom: 20px;
+      text-align: center;
     }
     .qr-img {
-      width: 180px; height: 180px; border-radius: 8px; flex-shrink: 0;
-      object-fit: contain; border: 2px solid #FFCC80;
+      width: 280px; height: 280px; border-radius: 10px;
+      object-fit: contain; border: 3px solid #FFCC80;
+      display: block; margin: 0 auto 16px;
     }
-    .qr-details { font-size: 13px; line-height: 1.9; }
-    .qr-details .amount { font-size: 24px; font-weight: 800; color: var(--orange); }
+    .qr-details { font-size: 14px; line-height: 2; }
+    .qr-details .amount { font-size: 28px; font-weight: 800; color: var(--orange); }
     .qr-details .upi {
       font-family: 'Courier New', monospace; background: white;
-      padding: 2px 8px; border-radius: 4px; font-size: 13px;
+      padding: 3px 12px; border-radius: 4px; font-size: 14px;
       border: 1px solid #FFCC80; color: var(--green-dark); font-weight: 700;
     }
     .warn { color: #C62828; font-weight: 700; }
