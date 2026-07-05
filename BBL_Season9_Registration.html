@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BBL Season 9 (2026) — Registration v1.1</title>
+  <title>BBL Season 9 (2026) — Registration v1.2</title>
   <style>
     :root {
       --green:        #2E7D32;
@@ -355,6 +355,11 @@
           <label>Alternate Home Club &nbsp;<span class="hint">leave blank if same as club in team name</span></label>
           <input type="text" id="homeClub" placeholder="Leave blank if not applicable">
         </div>
+        <div class="span-2">
+          <label>Notes / Special Remarks &nbsp;<span class="hint">optional — any information for the Committee</span></label>
+          <textarea id="notes" rows="3" placeholder="e.g. Division preference reason, player eligibility queries, special requests…"
+            style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;color:var(--text);background:white;outline:none;transition:border-color 0.2s,box-shadow 0.2s;resize:vertical;font-family:inherit;"></textarea>
+        </div>
       </div>
     </div>
 
@@ -459,7 +464,7 @@
 
 <div style="text-align:center;padding:16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border-light);margin-top:8px;">
   Baroda Badminton League &nbsp;·&nbsp; Season 9 Registration &nbsp;·&nbsp;
-  <span style="background:var(--green);color:white;border-radius:10px;padding:2px 10px;font-weight:700;font-size:11px;">v1.1</span>
+  <span style="background:var(--green);color:white;border-radius:10px;padding:2px 10px;font-weight:700;font-size:11px;">v1.2</span>
 </div>
 
 <script>
@@ -551,6 +556,7 @@ function collectData() {
     division: document.getElementById('division').value,
     retained: document.getElementById('retained').value,
     homeClub: document.getElementById('homeClub').value.trim(),
+    notes:    document.getElementById('notes').value.trim(),
     timestamp: new Date().toISOString(),
     players: PLAYERS.map(p => ({
       name:   (document.getElementById(`pName${p.num}`)?.value || '').trim(),
