@@ -470,6 +470,25 @@
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTptHoQmhzTW5KGr5bVvKIG9_RCRTMX2eqsZRiFfdKyXl1mRzKkQQB_C5XfBUftKQP/exec';
 
+// ── DEADLINE ── Change this to reopen / extend registration
+// Format: new Date('YYYY-MM-DDTHH:MM:SS+05:30')  (IST = UTC+5:30)
+const DEADLINE = new Date('2026-07-17T23:59:59+05:30');
+
+function checkDeadline() {
+  if (new Date() <= DEADLINE) return; // still open
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.querySelector('.container').innerHTML = `
+    <div class="card" style="text-align:center;padding:48px 24px;margin-top:24px;">
+      <div style="font-size:56px;margin-bottom:16px;">🏸</div>
+      <h2 style="color:var(--orange);font-size:22px;margin-bottom:12px;">Registration Closed</h2>
+      <p style="color:var(--muted);font-size:15px;line-height:1.8;">
+        The BBL Season 9 registration deadline has passed.<br>
+        Please contact the BBL Committee for any queries.
+      </p>
+    </div>`;
+}
+checkDeadline();
+
 const PLAYERS = [
   { num: 1, role: 'Captain'      },
   { num: 2, role: 'Vice Captain' },
