@@ -136,9 +136,26 @@ Payment File  : ${d.paymentFile?.name || 'Not uploaded'}
 ── NOTES ────────────────────────────────
 ${d.notes || '(none)'}
 
-View all registrations in Google Sheets and uploaded files in Google Drive under "BBL9 Submissions/${d.teamName}".`;
+Files are also attached to this email and saved in Google Drive under "BBL9 Submissions/${d.teamName}".`;
 
-    GmailApp.sendEmail(ADMIN_EMAIL, subject, body);
+    // Build attachments array from base64 data
+    const attachments = [];
+    if (d.clubIdFile?.data) {
+      attachments.push({
+        fileName: d.clubIdFile.name,
+        mimeType: d.clubIdFile.mimeType || 'application/octet-stream',
+        content:  Utilities.base64Decode(d.clubIdFile.data),
+      });
+    }
+    if (d.paymentFile?.data) {
+      attachments.push({
+        fileName: d.paymentFile.name,
+        mimeType: d.paymentFile.mimeType || 'application/octet-stream',
+        content:  Utilities.base64Decode(d.paymentFile.data),
+      });
+    }
+
+    GmailApp.sendEmail(ADMIN_EMAIL, subject, body, { attachments });
   } catch (err) {
     Logger.log('Email error: ' + err.message);
   }
